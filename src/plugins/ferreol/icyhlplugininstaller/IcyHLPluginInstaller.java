@@ -38,7 +38,7 @@ public class IcyHLPluginInstaller extends PluginActionable {
                     for (PluginDescriptor desc : plugList) {
                         System.out.println("Installing :"+desc.getName());
                         // install  plugin
-                        if(!desc.getName().contains("Matlab")){
+                        if((!desc.getName().contains("Matlab"))&&(!desc.getName().contains("Invert"))){
                             if( !desc.isInstalled()){
                                 PluginInstaller.install(desc, false);
                                 while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
