@@ -3,14 +3,14 @@ IcyHLPluginInstaller is a small [Icy plugin](http://icy.bioimageanalysis.org/). 
 
 Syntax: 
 ```bash
-java -jar icy.jar -hl -x plugins.ferreol.icyhlplugininstaller CLASSNAME
+java -jar icy.jar -hl -x plugins.ferreol.icyhlplugininstaller.IcyHLPluginInstaller CLASSNAME
 ```
 where 'CLASSNAME' is the ClassName of the desired plugin. This ClassName can be found in the "See technical details" link on  the plugin webpage.
 If 'CLASSNAME' is empty, it will only update Icy and the existing plugin.  If 'CLASSNAME == --all', it will install all available plugins.
 
 Exemple: 
 ```bash
-java -jar icy.jar -hl -x plugins.ferreol.icyhlplugininstaller plugins.adufour.ezplug.EzPlug
+java -jar icy.jar -hl -x plugins.ferreol.icyhlplugininstaller.IcyHLPluginInstaller  plugins.adufour.ezplug.EzPlug
 ```
 
 The jar file of IcyHLPluginInstaller is stored in the jar branch and can be downloaded in automatic script to build icy as in https://hub.docker.com/r/ferreol/icy/~/dockerfile/ 
