@@ -39,9 +39,11 @@ public class IcyHLPluginInstaller extends PluginActionable {
                         System.out.println("Installing :"+desc.getName());
                         // install  plugin
                         if(!desc.getName().contains("Matlab")){
-                            PluginInstaller.install(desc, false);
-                            while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
-                                ThreadUtil.sleep(1);
+                            if( !desc.isInstalled()){
+                                PluginInstaller.install(desc, false);
+                                while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
+                                    ThreadUtil.sleep(1);
+                            }
                         }
                     }
                 }else{
@@ -57,9 +59,11 @@ public class IcyHLPluginInstaller extends PluginActionable {
                             // get  plugin descriptor
                             PluginDescriptor desc = PluginRepositoryLoader.getPlugin(arg);
                             // install  plugin
-                            PluginInstaller.install(desc, false);
-                            while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
-                                ThreadUtil.sleep(1);
+                            if( !desc.isInstalled()){
+                                PluginInstaller.install(desc, false);
+                                while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
+                                    ThreadUtil.sleep(1);
+                            }
                         }
                     }
                 }
