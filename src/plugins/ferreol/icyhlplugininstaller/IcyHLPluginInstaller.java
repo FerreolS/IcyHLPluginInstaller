@@ -22,7 +22,6 @@ public class IcyHLPluginInstaller extends PluginActionable {
     public void run() {
         if(Icy.getMainInterface().isHeadLess()){
             // wait so we are sure the update process started
-            IcyUpdater.checkUpdate(true);
             ThreadUtil.sleep(10);
             // then wait until updates are done
             System.out.println("Updating");
@@ -33,26 +32,35 @@ public class IcyHLPluginInstaller extends PluginActionable {
             PluginRepositoryLoader.waitLoaded();
             if(  Icy.getCommandLinePluginArgs().length!=0){
                 if (Icy.getCommandLinePluginArgs()[0].equalsIgnoreCase("--all")){
+                    IcyUpdater.checkUpdate(true);
+                    ThreadUtil.sleep(10);
                     ArrayList<PluginDescriptor> plugList = PluginRepositoryLoader.getPlugins();
                     for (PluginDescriptor desc : plugList) {
                         System.out.println("Installing :"+desc.getName());
                         // install  plugin
-                        PluginInstaller.install(desc, false);
-                        while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
-                            ThreadUtil.sleep(1);
+                        if(!desc.getName().contains("Matlab")){
+                            PluginInstaller.install(desc, false);
+                            while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
+                                ThreadUtil.sleep(1);
+                        }
                     }
                 }else{
                     for (String arg : Icy.getCommandLinePluginArgs()) {
-                        System.out.println("Installing :"+arg);
-                        // wait for repository loader is loaded
-                        PluginRepositoryLoader.waitLoaded();
-                        // get  plugin descriptor
-                        PluginDescriptor desc = PluginRepositoryLoader.getPlugin(arg);
-                        // install  plugin
-                        PluginInstaller.install(desc, false);
-                        while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
-                            ThreadUtil.sleep(1);
 
+                        if (Icy.getCommandLinePluginArgs()[0].equalsIgnoreCase("--update")){
+                            IcyUpdater.checkUpdate(true);
+                            ThreadUtil.sleep(10);
+                        }else{
+                            System.out.println("Installing :"+arg);
+                            // wait for repository loader is loaded
+                            PluginRepositoryLoader.waitLoaded();
+                            // get  plugin descriptor
+                            PluginDescriptor desc = PluginRepositoryLoader.getPlugin(arg);
+                            // install  plugin
+                            PluginInstaller.install(desc, false);
+                            while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
+                                ThreadUtil.sleep(1);
+                        }
                     }
                 }
             }
