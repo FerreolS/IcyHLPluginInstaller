@@ -6,7 +6,7 @@ Syntax:
 java -jar icy.jar -hl -x plugins.ferreol.icyhlplugininstaller CLASSNAME
 ```
 where 'CLASSNAME' is the ClassName of the desired plugin. This ClassName can be found in the "See technical details" link on  the plugin webpage.
-If 'CLASSNAME' is empty, it will only update Icy and the existing plugin. 
+If 'CLASSNAME' is empty, it will only update Icy and the existing plugin.  If 'CLASSNAME == --all', it will install all available plugins.
 
 Exemple: 
 ```bash

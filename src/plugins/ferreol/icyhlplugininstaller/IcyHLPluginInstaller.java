@@ -1,5 +1,7 @@
 package plugins.ferreol.icyhlplugininstaller;
 
+import java.util.ArrayList;
+
 import icy.main.Icy;
 import icy.plugin.PluginDescriptor;
 import icy.plugin.PluginInstaller;
@@ -26,20 +28,32 @@ public class IcyHLPluginInstaller extends PluginActionable {
             System.out.println("Updating");
             while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || WorkspaceInstaller.isProcessing())
                 ThreadUtil.sleep(1);
+
+            // wait for repository loader is loaded
+            PluginRepositoryLoader.waitLoaded();
             if(  Icy.getCommandLinePluginArgs().length!=0){
-                for (String arg : Icy.getCommandLinePluginArgs()) {
-                    System.out.println("Installing :"+arg);
-                    // wait for repository loader is loaded
-                    PluginRepositoryLoader.waitLoaded();
-                    // get  plugin descriptor
-                    PluginDescriptor desc = PluginRepositoryLoader.getPlugin(arg);
+                if (Icy.getCommandLinePluginArgs()[0].equalsIgnoreCase("--all")){
+                    ArrayList<PluginDescriptor> plugList = PluginRepositoryLoader.getPlugins();
+                    for (PluginDescriptor desc : plugList) {
+                        System.out.println("Installing :"+desc.getName());
+                        // install  plugin
+                        PluginInstaller.install(desc, false);
+                        while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
+                            ThreadUtil.sleep(1);
+                    }
+                }else{
+                    for (String arg : Icy.getCommandLinePluginArgs()) {
+                        System.out.println("Installing :"+arg);
+                        // wait for repository loader is loaded
+                        PluginRepositoryLoader.waitLoaded();
+                        // get  plugin descriptor
+                        PluginDescriptor desc = PluginRepositoryLoader.getPlugin(arg);
+                        // install  plugin
+                        PluginInstaller.install(desc, false);
+                        while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
+                            ThreadUtil.sleep(1);
 
-                    // install  plugin
-                    PluginInstaller.install(desc, false);
-                    while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
-                        ThreadUtil.sleep(1);
-
-
+                    }
                 }
             }
         }
