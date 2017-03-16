@@ -1,6 +1,8 @@
 package plugins.ferreol.icyhlplugininstaller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import icy.main.Icy;
 import icy.plugin.PluginDescriptor;
@@ -17,6 +19,7 @@ import icy.workspace.WorkspaceInstaller;
  *
  */
 public class IcyHLPluginInstaller extends PluginActionable {
+    static List<String> buggyPlugin = Arrays.asList("Matlab communicator","Invert","Generate a bug");
 
     @Override
     public void run() {
@@ -38,7 +41,8 @@ public class IcyHLPluginInstaller extends PluginActionable {
                     for (PluginDescriptor desc : plugList) {
                         System.out.println("Installing :"+desc.getName());
                         // install  plugin
-                        if((!desc.getName().contains("Matlab"))&&(!desc.getName().contains("Invert"))){
+                        // if((!desc.getName().contains("Matlab"))&&(!desc.getName().contains("Invert"))){
+                        if (!buggyPlugin.contains(desc.getName())){
                             if( !desc.isInstalled()){
                                 PluginInstaller.install(desc, false);
                                 while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
