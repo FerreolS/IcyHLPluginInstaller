@@ -9,12 +9,17 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
+    <property name="doc.dir" location="doc"/>
+    <property name="jar.dir" location="jar"/>
+    <property name="bin.dir" location="bin"/>
+    <property name="lib.dir" location="lib"/>
     <path id="IcyHLPluginInstaller.classpath">
         <pathelement location="bin"/>
         <pathelement location="${ICY_HOME}/icy.jar"/>
     </path>
     <target name="init">
-        <mkdir dir="bin"/>
+        <mkdir dir="${jar.dir}"/>
+        <mkdir dir="${bin.dir}"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
                 <exclude name="**/*.launch"/>
@@ -23,7 +28,8 @@
         </copy>
     </target>
     <target name="clean">
-        <delete dir="bin"/>
+        <mkdir dir="${jar.dir}"/>
+        <mkdir dir="${bin.dir}"/>
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build"/>
@@ -49,4 +55,17 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
+                  <!-- Generate icyhlplugininstaller JAR for icy -->
+                  <target name="icyhlplugininstaller" depends="build" description="generate jar for icyhlplugininstaller">
+                        <jar destfile="${jar.dir}/icyhlplugininstaller.jar" filesetmanifest="mergewithoutmain">
+                            <manifest>
+                                <attribute name="Main-Class" value="plugins.ferreol.icyhlplugininstaller"/>
+                                <attribute name="Class-Path" value="."/>
+                            </manifest>
+                            <fileset dir="bin"/>
+                        </jar>
+
+                      <delete dir="bin"/>
+                    </target>
+
 </project>
