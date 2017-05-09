@@ -16,6 +16,7 @@
     <path id="IcyHLPluginInstaller.classpath">
         <pathelement location="bin"/>
         <pathelement location="${ICY_HOME}/icy.jar"/>
+        <pathelement location="lib"/>
     </path>
     <target name="init">
         <mkdir dir="${jar.dir}"/>
