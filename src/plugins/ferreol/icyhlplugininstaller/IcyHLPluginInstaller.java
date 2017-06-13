@@ -19,7 +19,7 @@ import icy.workspace.WorkspaceInstaller;
  *
  */
 public class IcyHLPluginInstaller extends PluginActionable {
-    static List<String> buggyPlugin = Arrays.asList("Matlab communicator","Invert","Generate a bug");
+    static List<String> hlBuggyPlugin = Arrays.asList("Matlab communicator","Matlab X server","Invert","Generate a bug");
 
     @Override
     public void run() {
@@ -42,7 +42,7 @@ public class IcyHLPluginInstaller extends PluginActionable {
                         System.out.println("Installing :"+desc.getName());
                         // install  plugin
                         // if((!desc.getName().contains("Matlab"))&&(!desc.getName().contains("Invert"))){
-                        if (!buggyPlugin.contains(desc.getName())){
+                        if (!hlBuggyPlugin.contains(desc.getName())){
                             if( !desc.isInstalled()){
                                 PluginInstaller.install(desc, false);
                                 while (PluginUpdater.isCheckingForUpdate() ||  PluginInstaller.isProcessing() || PluginInstaller.isInstalling())
