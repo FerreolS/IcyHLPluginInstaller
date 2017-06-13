@@ -58,9 +58,9 @@
     </target>
                   <!-- Generate icyhlplugininstaller JAR for icy -->
                   <target name="icyhlplugininstaller" depends="build" description="generate jar for icyhlplugininstaller">
-                        <jar destfile="${jar.dir}/icyhlplugininstaller.jar" filesetmanifest="mergewithoutmain">
+                        <jar destfile="${jar.dir}/IcyHLPluginInstaller.jar" filesetmanifest="mergewithoutmain">
                             <manifest>
-                                <attribute name="Main-Class" value="plugins.ferreol.icyhlplugininstaller"/>
+                                <attribute name="Main-Class" value="plugins.ferreol.IcyHLPluginInstaller"/>
                                 <attribute name="Class-Path" value="."/>
                             </manifest>
                             <fileset dir="bin"/>
