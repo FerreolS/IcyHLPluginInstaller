@@ -1,6 +1,6 @@
-anguage: java
+language: java
 jdk:
-- oraclejdk7
+- oraclejdk8
 before_install:
 - openssl aes-256-cbc -K $encrypted_ebd5a4459d6a_key -iv $encrypted_ebd5a4459d6a_iv  -in deploy_key.enc -out deploy_key -d
 - wget http://www.icy.bioimageanalysis.org/downloadIcy/icy.zip && unzip icy.zip -d  icy && rm icy.zip
