@@ -36,7 +36,7 @@ import icy.workspace.WorkspaceInstaller;
  *
  */
 public class IcyHLPluginInstaller extends PluginActionable {
-    static List<String> hlBuggyPlugin = Arrays.asList("Matlab communicator","Matlab X server","Invert","Generate a bug");
+    static List<String> hlBuggyPlugin = Arrays.asList("Matlab communicator","Matlab X server","Invert","Generate a bug","Bounding Box 3D","EVaFE MBNRing","Hello world tutorial","MitivDeconvolution");
 
     @Override
     public void run() {
