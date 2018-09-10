@@ -10,12 +10,12 @@ after_success:
 - eval "$(ssh-agent -s)" 
 - chmod 600 deploy_key
 - ssh-add deploy_key
-- git config --global user.email "ferreol.soulez@free.fr"
-- git config --global user.name "ferreol"
+- git config --global user.email "ferreol.soulez@univ-lyon1.fr"
+- git config --global user.name "ferreolS"
 - git config --global push.default matching
 - git clone  --branch=jar git@github.com:ferreolS/${PROJECT}
 - cp -r jar/* ${PROJECT}
-- cd ${PROJECT} && git add * && git commit -am "Jar update" && git push
+- cd ${PROJECT} && git add * && git commit -am "Jar update" && git push --force
 env:
   global:
   - PROJECT=icyhlplugininstaller
